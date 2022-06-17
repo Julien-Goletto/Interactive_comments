@@ -1,0 +1,10 @@
+@use 'src/styles/vars';
+body{
+  background-color: vars.$secondaryVeryLightGray;
+  height: 100vh;
+}
+.app{
+  background-color: red;
+  max-width: 70%;
+  margin: 2rem auto 3rem;
+}
