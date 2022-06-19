@@ -1,0 +1,37 @@
+
+@use 'src/styles/vars';
+
+.button{
+  padding: .3rem .5rem;
+  font-weight: 700;
+  border: none;
+  // background-color: transparent;
+  background-color: white;
+  &-reply, &-edit{
+    color: vars.$primaryModerateBlue;
+  }
+  &-delete{
+    color: vars.$primarySoftRed;
+  }
+}
+
+.button::before{
+  content: '';
+  display: inline-block;
+  height: 13px;
+  width: 14px;
+  margin-right: .35rem;
+  vertical-align: -7%;
+}
+
+.button-reply::before {
+  background-image: url('/public/images/icon-reply.svg');
+}
+.button-edit::before {
+  height: 14px;
+  background-image: url('/public/images/icon-edit.svg');
+}
+.button-delete::before {
+  width: 12px;
+  background-image: url('/public/images/icon-delete.svg');
+}

@@ -1,28 +1,41 @@
+// == Lib imports
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+// == Component import
+import Message from '../Message';
+
+// == Css imports
 import './comment.scss';
 
 function Comment({ comment }) {
-  const {
-    content, createdAt, score, user, replies,
-  } = comment;
+  const commentMessage = (({
+    id, content, createdAt, score, user,
+  }) => ({
+    id, content, createdAt, score, user,
+  }))(comment);
+  const { replies: inititalReplies } = comment;
+  const [replies, setReplies] = useState(inititalReplies);
+  const replyToComment = () => {
+
+  }
   return (
-    <div className="comment">
-      <div className="comment__header">
-        <img className="comment__header__user_pic" src={user.image.png} alt={`${user.username}`} />
-        <h2 className="comment__header__user__username">{user.username}</h2>
-        <p className="comment__header__user__createdAt">{createdAt}</p>
+    <>
+      <Message
+        message={commentMessage}
+        // replyType={}
+        className="comment"
+      />
+      <div className="comment_replies">
+        {
+          (replies.length > 0) && replies.map((r) => (
+            <Message
+              message={r}
+              className="comment__replies__reply"
+            />
+          ))
+        }
       </div>
-      <p className="comment__content">{content}</p>
-      <div className="comment__footer">
-        <div className="comment__footer__score">
-          <button type="button" className="comment__footer__score__+" action="">+</button>
-          <p className="comment__footer__score__display">{score}</p>
-          <button type="button" className="comment__footer__score__-" action="">-</button>
-        </div>
-        <button type="button" className="comment__footer__reply" action="">Reply</button>
-      </div>
-    </div>
+    </>
   );
 }
 

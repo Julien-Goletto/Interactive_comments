@@ -1,0 +1,20 @@
+@use 'src/styles/vars';
+
+.score{
+  background-color: vars.$secondaryLightGray;
+  display: inline-flex;
+  padding: .3rem .5rem;
+  border-radius : 7px;
+  align-items:baseline;
+  &__downvote, &__upvote{
+    border: none;
+    color: vars.$secondaryGrayishBlue;
+    padding: 0 .25rem;
+    font-size: 1rem;
+  }
+  &__display{
+    color: vars.$primaryModerateBlue;
+    padding: 0 .4rem;
+  }
+}
+
