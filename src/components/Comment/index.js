@@ -1,5 +1,4 @@
 // == Lib imports
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 // == Component import
 import Message from '../Message';
@@ -7,30 +6,34 @@ import Message from '../Message';
 // == Css imports
 import './comment.scss';
 
-function Comment({ comment }) {
+function Comment({
+  comment, currentUser, reply, incrementId,
+}) {
   const commentMessage = (({
     id, content, createdAt, score, user,
   }) => ({
     id, content, createdAt, score, user,
   }))(comment);
-  const { replies: inititalReplies } = comment;
-  const [replies, setReplies] = useState(inititalReplies);
-  const replyToComment = () => {
-
-  }
+  const { replies } = comment;
   return (
     <>
       <Message
-        message={commentMessage}
-        // replyType={}
         className="comment"
+        message={commentMessage}
+        currentUser={currentUser}
+        replyType={reply}
+        incrementId={incrementId}
       />
       <div className="comment_replies">
         {
           (replies.length > 0) && replies.map((r) => (
             <Message
-              message={r}
+              key={r.id}
               className="comment__replies__reply"
+              message={r}
+              currentUser={currentUser}
+              // replyType={reply({ type: 'comment', })}
+              incrementId={incrementId}
             />
           ))
         }
@@ -49,7 +52,7 @@ Comment.propTypes = {
       image: PropTypes.shape({
         png: PropTypes.string.isRequired,
         webp: PropTypes.string.isRequired,
-      }),
+      }).isRequired,
       username: PropTypes.string.isRequired,
     }).isRequired,
     replies: PropTypes.arrayOf(
@@ -68,6 +71,15 @@ Comment.propTypes = {
       }),
     ).isRequired,
   }).isRequired,
+  currentUser: PropTypes.shape({
+    image: PropTypes.shape({
+      png: PropTypes.string.isRequired,
+      webp: PropTypes.string.isRequired,
+    }).isRequired,
+    username: PropTypes.string.isRequired,
+  }).isRequired,
+  reply: PropTypes.func.isRequired,
+  incrementId: PropTypes.func.isRequired,
 };
 
 export default Comment;

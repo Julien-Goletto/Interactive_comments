@@ -3,20 +3,11 @@ import { useState, useReducer } from 'react';
 import PropTypes from 'prop-types';
 // == Css imports
 import './score.scss';
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'upvote':
-      return state + 1;
-    case 'downvote':
-      return state - 1;
-    default:
-      throw new Error();
-  }
-}
+// == Import reducer
+import toggleReducer from 'src/reducers/toggle.reducer';
 
 function Score({ initialScore }) {
-  const [score, dispatch] = useReducer(reducer, initialScore);
+  const [score, dispatch] = useReducer(toggleReducer, initialScore);
   const [hasVoted, setHasVoted] = useState(false);
   return (
     <div className="score">
