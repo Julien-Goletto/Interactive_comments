@@ -22,6 +22,8 @@ function App() {
     setLastId(lastId + 1);
   };
 
+  const getLastId = () => lastId;
+
   return (
     <div className="app">
       {
@@ -30,8 +32,9 @@ function App() {
             key={c.id}
             comment={c}
             currentUser={data.currentUser}
-            reply={dispatch}
+            commentOrReply={dispatch}
             incrementId={incrementId}
+            getLastId={getLastId}
           />
         ))
       }

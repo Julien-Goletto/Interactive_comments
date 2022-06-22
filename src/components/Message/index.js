@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 // == Lib imports
 import { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -9,7 +10,7 @@ import Form from '../Form';
 import './message.scss';
 
 function Message({
-  message, replyType, currentUser, incrementId,
+  messageType, commentId, message, commentOrReply, currentUser, incrementId, getLastId,
 }) {
   const {
     content, createdAt, score, user,
@@ -45,9 +46,13 @@ function Message({
       {
         (isReplying) && (
           <Form
-            replyType={replyType}
+            messageType={messageType}
+            commentId={commentId}
+            author={user.username}
+            commentOrReply={commentOrReply}
             currentUser={currentUser}
             incrementId={incrementId}
+            getLastId={getLastId}
             closeForm={closeForm}
           />
         )
@@ -57,6 +62,8 @@ function Message({
 }
 
 Message.propTypes = {
+  messageType: PropTypes.string.isRequired,
+  commentId: PropTypes.number,
   message: PropTypes.shape({
     id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
@@ -70,7 +77,7 @@ Message.propTypes = {
       username: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  replyType: PropTypes.func.isRequired,
+  commentOrReply: PropTypes.func.isRequired,
   currentUser: PropTypes.shape({
     image: PropTypes.shape({
       png: PropTypes.string.isRequired,
@@ -79,6 +86,7 @@ Message.propTypes = {
     username: PropTypes.string.isRequired,
   }).isRequired,
   incrementId: PropTypes.func.isRequired,
+  getLastId: PropTypes.func.isRequired,
 };
 
 export default Message;

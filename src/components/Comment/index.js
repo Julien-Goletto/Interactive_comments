@@ -7,33 +7,39 @@ import Message from '../Message';
 import './comment.scss';
 
 function Comment({
-  comment, currentUser, reply, incrementId,
+  comment, currentUser, commentOrReply, incrementId, getLastId,
 }) {
   const commentMessage = (({
     id, content, createdAt, score, user,
   }) => ({
     id, content, createdAt, score, user,
   }))(comment);
-  const { replies } = comment;
+  const { id, replies } = comment;
   return (
     <>
       <Message
+        commentId={id}
+        messageType="reply"
         className="comment"
         message={commentMessage}
         currentUser={currentUser}
-        replyType={reply}
+        commentOrReply={commentOrReply}
         incrementId={incrementId}
+        getLastId={getLastId}
       />
       <div className="comment_replies">
         {
           (replies.length > 0) && replies.map((r) => (
             <Message
               key={r.id}
+              messageType="reply"
+              commentId={id}
               className="comment__replies__reply"
               message={r}
               currentUser={currentUser}
-              // replyType={reply({ type: 'comment', })}
+              commentOrReply={commentOrReply}
               incrementId={incrementId}
+              getLastId={getLastId}
             />
           ))
         }
@@ -78,8 +84,9 @@ Comment.propTypes = {
     }).isRequired,
     username: PropTypes.string.isRequired,
   }).isRequired,
-  reply: PropTypes.func.isRequired,
+  commentOrReply: PropTypes.func.isRequired,
   incrementId: PropTypes.func.isRequired,
+  getLastId: PropTypes.func.isRequired,
 };
 
 export default Comment;
