@@ -39,7 +39,7 @@ function Form({
           className="reply__label__user-pic"
           src={png}
           alt={`${username}`}
-        />
+        />ù
         <input
           className="reply__label__textInput"
           placeholder="Write your message..."
